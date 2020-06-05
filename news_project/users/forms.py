@@ -26,3 +26,8 @@ class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         fields = ['first_name', 'surname', 'birth_date']
+
+
+class LoginForm(forms.Form):
+    username = forms.CharField(label='Email')
+    password = forms.CharField(widget=forms.PasswordInput())

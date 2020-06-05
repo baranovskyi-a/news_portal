@@ -1,8 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
+from tinymce.models import HTMLField
 
 
-# Create your models here.
 class Post(models.Model):
     STATUSES = (
         ('P', 'Pending'),
@@ -10,7 +10,7 @@ class Post(models.Model):
         ('D', 'Declined'),
     )
     title = models.CharField(max_length=500)
-    body = models.TextField()
+    body = HTMLField()
     date = models.DateField(auto_now_add=True)
     author = models.ForeignKey(
         User,

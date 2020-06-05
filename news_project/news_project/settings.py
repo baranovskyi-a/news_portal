@@ -37,6 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'tinymce',
+
     'users.apps.UsersConfig',
     'mainpage.apps.MainpageConfig',
     'posts.apps.PostsConfig',

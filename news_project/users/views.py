@@ -34,7 +34,7 @@ class UserRegistrationView(View):
             new_profile.save()
             messages.add_message(request, messages.INFO, 'Check your email and confirm the registration')
             return redirect(reverse('main_page:main_page'))
-        return render(request, template_name, context={user_form: user_form, user_profile_form: user_profile_form})
+        return render(request, template_name, context={'user_form': user_form, 'user_profile_form': user_profile_form})
 
 
 class UserLoginView(View):

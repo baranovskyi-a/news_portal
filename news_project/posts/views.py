@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect, reverse
-from django.views.generic import View
+from django.views.generic import View, ListView
 from .forms import PostForm
 from users.models import UserProfile
 from django.contrib import messages
+from .models import Post
 
 # Create your views here.
 class AddPostView(View):
@@ -27,3 +28,10 @@ class AddPostView(View):
             messages.add_message(request, messages.INFO, f'Your post {status_label}')
             return redirect(reverse('main_page:main_page'))
         return render(request, template_name, context={'post_form': post_form})
+
+
+class PostListView(ListView):
+
+    model = Post
+    paginate_by = 10
+    template_name = 'post_list.html'

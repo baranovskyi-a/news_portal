@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %}
+    Post List
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+      <h1>Post List</h1>
+    </div>
+    <div class="container">
+        <div class="container">
+        {% for post in object_list %}
+        <li><b>{{ post.title }}</b> by {{ post.author.username }}, {{ post.date }}</li>
+        {% empty %}
+            <li>No posts yet.</li>
+        {% endfor %}
+        </div>
+        <br>
+        <div class="container">
+            {% if is_paginated %}
+              <ul class="pagination">
+                {% if page_obj.has_previous %}
+                  <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+                {% else %}
+                  <li class="disabled page-item"><span class="page-link">&laquo;</span></li>
+                {% endif %}
+                {% for i in paginator.page_range %}
+                  {% if page_obj.number == i %}
+                    <li class="active page-item"><span class="page-link">{{ i }} <span class="sr-only">(current)</span></span></li>
+                  {% else %}
+                    <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                  {% endif %}
+                {% endfor %}
+                {% if page_obj.has_next %}
+                  <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+                {% else %}
+                  <li class="disabled page-item"><span class="page-link">&raquo;</span></li>
+                {% endif %}
+              </ul>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

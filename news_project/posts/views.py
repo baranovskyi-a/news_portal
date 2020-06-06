@@ -36,6 +36,9 @@ class PostListView(ListView):
     paginate_by = 10
     template_name = 'post_list.html'
 
+    def get_queryset(self):
+        return Post.objects.filter(status='A')
+
 
 class PostDetailView(DetailView):
     model = Post

@@ -10,7 +10,7 @@
     <div class="container">
         <div class="container">
         {% for post in object_list %}
-        <li><b>{{ post.title }}</b> by {{ post.author.username }}, {{ post.date }}</li>
+            <li><b><a href="{% url 'posts:detail' pk=post.pk %}"> {{ post.title }}</a></b> by {{ post.author.username }}, {{ post.date }}</li>
         {% empty %}
             <li>No posts yet.</li>
         {% endfor %}

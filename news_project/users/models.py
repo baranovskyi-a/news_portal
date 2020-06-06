@@ -19,3 +19,6 @@ class UserProfile(models.Model):
         related_name='profile',
     )
     group = models.CharField(max_length=1, choices=GROUPS, default='U')
+
+    def __str__(self):
+        return f'profile of user {self.user.username}'

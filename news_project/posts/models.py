@@ -18,3 +18,6 @@ class Post(models.Model):
         related_name='posts',
     )
     status = models.CharField(max_length=1, choices=STATUSES, default='P')
+
+    def __str__(self):
+        return f'{self.title} by {self.author.username}'

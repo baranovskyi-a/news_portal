@@ -5,7 +5,7 @@ from users.models import UserProfile
 from django.contrib import messages
 from .models import Post
 
-# Create your views here.
+
 class AddPostView(View):
     def get(self, request, **kwargs):
         template_name = 'add_post.html'

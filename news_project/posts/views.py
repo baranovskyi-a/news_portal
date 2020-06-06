@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, reverse
-from django.views.generic import View, ListView
+from django.views.generic import View, ListView, DetailView
 from .forms import PostForm
 from users.models import UserProfile
 from django.contrib import messages
@@ -35,3 +35,8 @@ class PostListView(ListView):
     model = Post
     paginate_by = 10
     template_name = 'post_list.html'
+
+
+class PostDetailView(DetailView):
+    model = Post
+    template_name = 'post.html'

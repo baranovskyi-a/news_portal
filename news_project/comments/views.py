@@ -1,3 +1,4 @@
+from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.contrib import messages
 from django.views.generic import View, ListView
@@ -8,11 +9,15 @@ from posts.models import Post
 
 class AddCommentView(View):
     def get(self, request, **kwargs):
+        if not request.user.is_authenticated:
+            raise PermissionDenied
         template_name = 'add_comment.html'
         args = {'comment_form': CommentForm()}
         return render(request, template_name, context=args)
 
     def post(self, request, **kwargs):
+        if not request.user.is_authenticated:
+            raise PermissionDenied
         template_name = 'add_comment.html'
         comment_form = CommentForm(request.POST)
         if comment_form.is_valid():

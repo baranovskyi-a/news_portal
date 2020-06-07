@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, reverse
+from django.core.exceptions import PermissionDenied
 from django.views.generic import View, ListView, DetailView
 from .forms import PostForm
 from users.models import UserProfile
@@ -8,11 +9,15 @@ from .models import Post
 
 class AddPostView(View):
     def get(self, request, **kwargs):
+        if not request.user.is_authenticated:
+            raise PermissionDenied
         template_name = 'add_post.html'
         args = {'post_form': PostForm()}
         return render(request, template_name, context=args)
 
     def post(self, request, **kwargs):
+        if not request.user.is_authenticated:
+            raise PermissionDenied
         template_name = 'add_post.html'
         post_form = PostForm(request.POST)
         if post_form.is_valid():

@@ -18,6 +18,7 @@ class UserProfileAdmin(admin.ModelAdmin):
     raw_id_fields = ('user',)
     list_display = ('user', 'group',)
     list_filter = ('group',)
+    readonly_fields = ('email_confirmed',)
     actions = [make_admin, make_editor, make_user]
     list_per_page = 20
 

@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseRedirect
 from .forms import UserForm, UserProfileForm, LoginForm
 from django.contrib import messages
+from one_time_codes.models import OneTimeCode
 
 
 class UserRegistrationView(View):
@@ -32,6 +33,7 @@ class UserRegistrationView(View):
             new_profile = user_profile_form.save(commit=False)
             new_profile.user = new_user
             new_profile.save()
+            OneTimeCode.objects.create(user=new_user)
             messages.add_message(request, messages.INFO, 'Check your email and confirm the registration')
             return redirect(reverse('main_page:main_page'))
         return render(request, template_name, context={'user_form': user_form, 'user_profile_form': user_profile_form})

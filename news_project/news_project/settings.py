@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'mainpage.apps.MainpageConfig',
     'posts.apps.PostsConfig',
     'comments.apps.CommentsConfig',
+    'one_time_codes.apps.OneTimeCodesConfig',
 ]
 
 MIDDLEWARE = [
@@ -125,3 +126,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+ONE_TIME_CODE_LIFETIME_HOURS = 24

@@ -1,8 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
+from one_time_codes.models import OneTimeCode
 
 
-# Create your models here.
 class UserProfile(models.Model):
     GROUPS = (
         ('U', 'User'),
@@ -19,6 +19,10 @@ class UserProfile(models.Model):
         related_name='profile',
     )
     group = models.CharField(max_length=1, choices=GROUPS, default='U')
+
+    @property
+    def email_confirmed(self):
+        return bool(OneTimeCode.objects.filter(user=self.user, is_confirmed=True))
 
     def __str__(self):
         return f'profile of user {self.user.username}'

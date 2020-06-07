@@ -24,5 +24,6 @@ urlpatterns = [
     path('users/', include('users.urls')),
     path('posts/', include('posts.urls')),
     path('posts/<int:post_id>/comments/', include('comments.urls')),
+    path('one_time_codes/', include('one_time_codes.urls')),
     path('', include('mainpage.urls')),
 ]

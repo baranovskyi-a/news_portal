@@ -7,7 +7,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from .forms import UserForm, UserProfileForm, LoginForm
 from django.contrib import messages
 from one_time_codes.models import OneTimeCode
-
+from django.conf import settings
+from mailer.sender import send_mail
 
 class UserRegistrationView(View):
 
@@ -33,7 +34,16 @@ class UserRegistrationView(View):
             new_profile = user_profile_form.save(commit=False)
             new_profile.user = new_user
             new_profile.save()
-            OneTimeCode.objects.create(user=new_user)
+            one_time_code = OneTimeCode.objects.create(user=new_user)
+            verification_link = request.build_absolute_uri(
+                reverse('one_time_codes:confirm_email',
+                        kwargs={'otc': one_time_code.code}))
+            html_content = 'Please <b>click</b> for verify your email:<br>' + \
+                           f'<a href="{verification_link}">{verification_link}</a>'
+            send_mail(from_email=settings.SENDGRID_SENDERS_EMAIL,
+                      to_emails=new_user.email,
+                      subject='Email verification',
+                      html_content=html_content)
             messages.add_message(request, messages.INFO, 'Check your email and confirm the registration')
             return redirect(reverse('main_page:main_page'))
         return render(request, template_name, context={'user_form': user_form, 'user_profile_form': user_profile_form})

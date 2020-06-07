@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'posts.apps.PostsConfig',
     'comments.apps.CommentsConfig',
     'one_time_codes.apps.OneTimeCodesConfig',
+    'mailer.apps.MailerConfig',
 ]
 
 MIDDLEWARE = [
@@ -128,3 +129,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 ONE_TIME_CODE_LIFETIME_HOURS = 24
+
+SENDGRID_API_KEY = ''
+SENDGRID_SENDERS_EMAIL = ''
+if os.path.isfile(os.path.dirname(os.path.abspath(__file__)) + '/local.py'):
+    from .local import *

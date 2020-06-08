@@ -5,6 +5,9 @@ from django.views.generic import View, ListView
 from .forms import CommentForm
 from .models import Comment
 from posts.models import Post
+from users.models import UserProfile
+from django.conf import settings
+from mailer.sender import send_mail
 
 
 class AddCommentView(View):
@@ -27,6 +30,18 @@ class AddCommentView(View):
                 pk=kwargs.get('post_id', -1)
             )
             new_comment.author = request.user
+            if UserProfile.objects.get(user=new_comment.post.author).email_confirmed:
+                comments_link = request.build_absolute_uri(
+                    reverse('comments:list',
+                            kwargs={'post_id': new_comment.post.pk}))
+                html_content = f'You have got a new comment by {new_comment.author.username}:<br>' + \
+                               f'{new_comment.body}<br>' + \
+                               'Go to comments: <br>' + \
+                               f'<a href="{comments_link}">{comments_link}</a>'
+                send_mail(from_email=settings.SENDGRID_SENDERS_EMAIL,
+                          to_emails=new_comment.post.author.email,
+                          subject='New comment notification',
+                          html_content=html_content)
             new_comment.save()
             messages.add_message(request, messages.INFO, 'Your comment added')
             return redirect(reverse('posts:detail', args=[kwargs.get('post_id'),]))

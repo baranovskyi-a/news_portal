@@ -14,17 +14,29 @@
     {%  endblock %}
   </head>
   <body>
-    {% if messages %}
-        <ul class="messages">
-            {% for message in messages %}
-            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-
- {% block body %}
-  default content
- {% endblock %}
+    <div class="container">
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+    <div class="container">
+        {% if user.is_authenticated %}
+            <p>Hello, {{ user.username }}</p>
+            <p><a href="{% url 'users:logout' %}">Logout</a></p>
+        {% else %}
+            <p>Hello, guest.</p>
+            <p><a href="{% url 'users:login' %}">Login</a></p>
+            <p><a href="{% url 'users:registration' %}">Registration</a></p>
+        {% endif %}
+        <p><a href="{% url 'posts:list' %}">Main page</a></p>
+    </div>
+     {% block body %}
+      default content
+     {% endblock %}
 
 
     <!-- Optional JavaScript -->

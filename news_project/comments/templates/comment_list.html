@@ -5,22 +5,25 @@
 
 {% block body %}
     <div class="container">
-      <h1>Comment List</h1>
+      <h3>Comments</h3>
     </div>
     <div class="container">
+        <p><a href="{% url 'posts:detail' pk=post_id %}">Back to post</a></p>
         <div class="container">
-        {% for comment in object_list %}
-            <li>
-                <p>
-                    {{ comment.body }}
-                </p>
-                <p>
-                    <i>{{ comment.author.username }}, {{ comment.date }}</i>
-                </p>
-            </li>
-        {% empty %}
-            <li>No comments yet.</li>
-        {% endfor %}
+            <ul  class="list-group">
+                {% for comment in object_list %}
+                    <li class="list-group-item">
+                        <p>
+                            {{ comment.body }}
+                        </p>
+                        <p>
+                            <i>{{ comment.author.username }}, {{ comment.date }}</i>
+                        </p>
+                    </li>
+                {% empty %}
+                    <li class="list-group-item">No comments yet.</li>
+                {% endfor %}
+            </ul>
         </div>
         <br>
         <div class="container">
@@ -46,5 +49,16 @@
               </ul>
             {% endif %}
         </div>
+
+        <div class="container">
+            <p>
+                {% if user.is_authenticated %}
+                  <a href="{% url 'comments:add' post_id=post_id %}">Add Comment</a>
+                {% else %}
+                    Login to comment
+                {% endif %}
+            </p>
+        </div>
+
     </div>
 {% endblock %}

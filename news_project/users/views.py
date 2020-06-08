@@ -45,7 +45,7 @@ class UserRegistrationView(View):
                       subject='Email verification',
                       html_content=html_content)
             messages.add_message(request, messages.INFO, 'Check your email and confirm the registration')
-            return redirect(reverse('main_page:main_page'))
+            return redirect(reverse('posts:list'))
         return render(request, template_name, context={'user_form': user_form, 'user_profile_form': user_profile_form})
 
 
@@ -70,8 +70,8 @@ class UserLoginView(View):
                 return render(request, template_name, context=args)
 
             login(request, user)
-            messages.add_message(request, messages.INFO, f'Hello, {user.username}')
-            return redirect(reverse('main_page:main_page'))
+            # messages.add_message(request, messages.INFO, f'Hello, {user.username}')
+            return redirect(reverse('posts:list'))
         return render(request, template_name, {'form': form})
 
 
@@ -80,4 +80,4 @@ class UserLogoutView(View):
     def get(self, request, **kwargs):
         logout(request)
         messages.add_message(request, messages.INFO, 'Successfully logged out')
-        return redirect(reverse('main_page:main_page'))
+        return redirect(reverse('posts:list'))

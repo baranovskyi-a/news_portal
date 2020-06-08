@@ -60,3 +60,9 @@ class CommentListView(ListView):
                 pk=self.kwargs.get('post_id', -1)
             )
         return Comment.objects.filter(post=post)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        args = {'post_id': self.kwargs.get('post_id', -1)}
+        context.update(args)
+        return context

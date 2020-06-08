@@ -13,4 +13,7 @@
     <div class="container">
         {{ object.body|safe }}
     </div>
+    <div class="container">
+        <p><a href="{% url 'comments:list' post_id=object.pk %}">Comments</a></p>
+    </div>
 {% endblock %}

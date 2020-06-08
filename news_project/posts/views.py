@@ -31,7 +31,7 @@ class AddPostView(View):
                 status_label = 'is pending'
             new_post.save()
             messages.add_message(request, messages.INFO, f'Your post {status_label}')
-            return redirect(reverse('main_page:main_page'))
+            return redirect(reverse('posts:list'))
         return render(request, template_name, context={'post_form': post_form})
 
 

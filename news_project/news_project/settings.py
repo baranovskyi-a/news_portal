@@ -132,5 +132,9 @@ ONE_TIME_CODE_LIFETIME_HOURS = 24
 
 SENDGRID_API_KEY = ''
 SENDGRID_SENDERS_EMAIL = ''
+CELERY_BROKER_URL = 'redis://localhost'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+
 if os.path.isfile(os.path.dirname(os.path.abspath(__file__)) + '/local.py'):
     from .local import *

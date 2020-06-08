@@ -40,7 +40,7 @@ class UserRegistrationView(View):
                         kwargs={'otc': one_time_code.code}))
             html_content = 'Please <b>click</b> for verify your email:<br>' + \
                            f'<a href="{verification_link}">{verification_link}</a>'
-            send_mail(from_email=settings.SENDGRID_SENDERS_EMAIL,
+            send_mail.delay(from_email=settings.SENDGRID_SENDERS_EMAIL,
                       to_emails=new_user.email,
                       subject='Email verification',
                       html_content=html_content)

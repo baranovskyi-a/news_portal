@@ -38,7 +38,7 @@ class AddCommentView(View):
                                f'{new_comment.body}<br>' + \
                                'Go to comments: <br>' + \
                                f'<a href="{comments_link}">{comments_link}</a>'
-                send_mail(from_email=settings.SENDGRID_SENDERS_EMAIL,
+                send_mail.delay(from_email=settings.SENDGRID_SENDERS_EMAIL,
                           to_emails=new_comment.post.author.email,
                           subject='New comment notification',
                           html_content=html_content)

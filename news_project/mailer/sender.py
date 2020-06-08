@@ -2,8 +2,11 @@ import ssl
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
 from django.conf import settings
+from news_project.celery import app
 
 
+
+@app.task
 def send_mail(from_email, to_emails, subject, html_content):
     message = Mail(
         from_email=from_email,

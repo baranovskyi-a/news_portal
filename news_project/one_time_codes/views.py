@@ -12,12 +12,12 @@ class ConfirmEmail(View):
         )
         if one_time_code.is_confirmed:
             messages.add_message(request, messages.INFO, f'Your email is already confirmed')
-            return redirect(reverse('main_page:main_page'))
+            return redirect(reverse('posts:list'))
         if one_time_code.is_active:
             one_time_code.is_confirmed = True
             one_time_code.save()
             messages.add_message(request, messages.INFO, f'Your email has been confirmed')
-            return redirect(reverse('main_page:main_page'))
+            return redirect(reverse('posts:list'))
         else:
             messages.add_message(request, messages.INFO, f'This token expired')
-            return redirect(reverse('main_page:main_page'))
+            return redirect(reverse('posts:list'))

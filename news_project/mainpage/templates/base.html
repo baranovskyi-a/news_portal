@@ -26,6 +26,7 @@
     <div class="container">
         {% if user.is_authenticated %}
             <p>Hello, {{ user.username }}</p>
+            <p>Your status is {{ user.profile.get_group_display }}</p>
             <p><a href="{% url 'users:logout' %}">Logout</a></p>
         {% else %}
             <p>Hello, guest.</p>

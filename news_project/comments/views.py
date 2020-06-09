@@ -59,7 +59,7 @@ class CommentListView(ListView):
                 Post,
                 pk=self.kwargs.get('post_id', -1)
             )
-        return Comment.objects.filter(post=post)
+        return Comment.objects.filter(post=post).order_by('-date')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

@@ -42,7 +42,7 @@ class PostListView(ListView):
     template_name = 'post_list.html'
 
     def get_queryset(self):
-        return Post.objects.filter(status='A')
+        return Post.objects.filter(status='A').order_by('-date')
 
 
 class PostDetailView(DetailView):
